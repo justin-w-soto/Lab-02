@@ -15,11 +15,31 @@ describe('simpleDb', () => {
 
   it('should give a unique id to an object and stringify it', () => {
     const simpleDb = new SimpleDb(rootDir);
-    const blobject = simpleDb.save({ data: 'some data' }).catch((err) => {
+    const blobject = simpleDb.save(
+      {
+        data: 'some data' 
+      }
+    ).catch((err) => {
       console.error(err.message());
     });
     expect(blobject).toBe(expect.any(String));
   });
 
+  it('should get an object', () => {
+    const simpleDb = new SimpleDb(rootDir);
+    const blobject = 
+    {
+      data: 'some data' 
+    };
+    const gotIt = simpleDb.save(blobject).then((id) => {
+      simpleDb.get(id);
+    });
+
+    expect(gotIt).toEqual(
+      {
+        id: expect.any(String),
+        data: 'some data'
+      });
+  });
 });
 
