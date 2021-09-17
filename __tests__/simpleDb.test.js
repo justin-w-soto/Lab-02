@@ -9,37 +9,18 @@ describe('simpleDb', () => {
 
   beforeEach(() => {
     return rm(rootDir, { force: true, recursive: true }).then(() => {
-      return mkdir(rootDir);
+      return mkdir(rootDir, { recursive: true });
     });
   });
 
-  it('should give a unique id to an object and stringify it', () => {
+  it('should save created objects', () => {
     const simpleDb = new SimpleDb(rootDir);
-    const blobject = simpleDb.save(
-      {
-        data: 'some data' 
-      }
-    ).catch((err) => {
-      console.error(err.message());
-    });
-    expect(blobject).toBe(expect.any(String));
-  });
+    const blobject = simpleDb.save({ someData: 'some data' });
 
-  it('should get an object', () => {
-    const simpleDb = new SimpleDb(rootDir);
-    const blobject = 
-    {
-      data: 'some data' 
-    };
-    const gotIt = simpleDb.save(blobject).then((id) => {
-      simpleDb.get(id);
-    });
-
-    expect(gotIt).toEqual(
-      {
-        id: expect.any(String),
-        data: 'some data'
+    return simpleDb
+      .save(blobject)
+      .then(() => {
+        expect(blobject.id).toEqual(expect.any(String)); 
       });
   });
 });
-
