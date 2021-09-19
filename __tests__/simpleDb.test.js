@@ -35,7 +35,7 @@ describe('simpleDb', () => {
       });
   });
 
-  it('should get null', () => {
+  it('should get null objects', () => {
     const simpleDataBase = new SimpleDb(rootDir);
     const blobject = { someData: 'some data', name: 'Blob' };
 
@@ -44,6 +44,15 @@ describe('simpleDb', () => {
         return simpleDataBase.fetch().then((fetched) => {
           expect(fetched).toEqual(null);
         });
+      });
+  });
+
+  it('should get all of the objects', () => {
+    const simpleDataBase = new SimpleDb(rootDir);
+    const blobject = { someData: 'some data', name: 'Blob' };
+    return simpleDataBase
+      .save(blobject).then(() => {
+        expect(fetched).toEqual([{ id: expect.any(String), someData: 'some data', name: 'Blob' }]);
       });
   });
 
