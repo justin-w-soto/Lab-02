@@ -1,4 +1,3 @@
-//import some things
 
 import { rm, mkdir } from 'fs/promises';
 import { SimpleDb } from '../lib/simpleDb.js';
@@ -35,4 +34,17 @@ describe('simpleDb', () => {
         });
       });
   });
+
+  it('should get null', () => {
+    const simpleDataBase = new SimpleDb(rootDir);
+    const blobject = { someData: 'some data', name: 'Blob' };
+
+    return simpleDataBase 
+      .save(blobject).then(() => {
+        return simpleDataBase.fetch().then((fetched) => {
+          expect(fetched).toEqual(null);
+        });
+      });
+  });
+
 });
