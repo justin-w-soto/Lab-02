@@ -52,8 +52,9 @@ describe('simpleDb', () => {
     const blobject = { someData: 'some data', name: 'Blob' };
     return simpleDataBase
       .save(blobject).then(() => {
-        expect(fetched).toEqual([{ id: expect.any(String), someData: 'some data', name: 'Blob' }]);
+        return simpleDataBase.fetchAll().then((fetched) => {
+          expect(fetched).toEqual([{ id: expect.any(String), someData: 'some data', name: 'Blob' }]);
+        });
       });
   });
-
 });
