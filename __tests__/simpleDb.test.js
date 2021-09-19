@@ -14,10 +14,10 @@ describe('simpleDb', () => {
   });
 
   it('should save created objects', () => {
-    const simpleDb = new SimpleDb(rootDir);
-    const blobject = simpleDb.save({ someData: 'some data', name: 'Blob' });
+    const simpleDataBase = new SimpleDb(rootDir);
+    const blobject = { someData: 'some data', name: 'Blob' };
 
-    return simpleDb
+    return simpleDataBase
       .save(blobject)
       .then(() => {
         expect(blobject.id).toEqual(expect.any(String)); 
@@ -25,12 +25,12 @@ describe('simpleDb', () => {
   });
   
   it('should find an object by id and get it ', () => {
-    const simpleDb = new simpleDb(rootDir);
-    const blobject = simpleDb.save({ someData: 'some data', name: 'Blob' });
+    const simpleDataBase = new SimpleDb(rootDir);
+    const blobject = { someData: 'some data', name: 'Blob' };
 
-    return simpleDb
+    return simpleDataBase
       .save(blobject).then((id) => {
-        return simpleDb.get(id).then((fetched) => {
+        return simpleDataBase.fetch(id).then((fetched) => {
           expect(fetched).toEqual({ id: expect.any(String), someData: 'some data', name: 'Blob' });
         });
       });
